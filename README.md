@@ -1,4 +1,4 @@
-# SendArticleToKindle
+# send to kindle
 
 ## Usage:
 1. Clone the project
