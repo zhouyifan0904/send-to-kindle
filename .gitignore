@@ -105,3 +105,6 @@ dist
 
 # hide credentials
 credentials.js
+
+# ignore archive
+archive/*
