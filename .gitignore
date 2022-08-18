@@ -107,4 +107,4 @@ dist
 credentials.js
 
 # ignore archive
-archive/*
+archive/*.html
