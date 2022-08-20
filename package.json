@@ -5,5 +5,6 @@
     "nodemailer": "^6.4.17",
     "npm": "^8.6.0"
   },
-  "type": "module"
+  "type": "module",
+  "name": "send-to-kindle"
 }
