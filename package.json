@@ -2,6 +2,8 @@
   "dependencies": {
     "@mozilla/readability": "^0.4.2",
     "@postlight/mercury-parser": "^2.2.1",
+    "https-proxy-agent": "^5.0.1",
+    "node-fetch": "^3.2.10",
     "nodemailer": "^6.4.17",
     "npm": "^8.6.0"
   },

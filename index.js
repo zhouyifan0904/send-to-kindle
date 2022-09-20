@@ -1,4 +1,6 @@
 import Mercury from "@postlight/mercury-parser";
+import fetch from "node-fetch";
+import proxyagent from 'https-proxy-agent';
 import fs from "fs";
 import nodemailer from "nodemailer";
 import {
@@ -19,8 +21,8 @@ if (!targetEmail) targetEmail = "example@kindle.com";
 
 let transporter = nodemailer.createTransport({
   host: "smtp.126.com",
-  port: 25,
-  secure: false, // upgrade later with STARTTLS
+  port: 465,
+  secure: true,
   auth: {
     user: emailUser,
     pass: pswd,
@@ -31,7 +33,17 @@ let url = process.argv[2];
 console.log("using url:");
 console.log(url);
 
-Mercury.parse(url, { contentType: "html" }).then((result) => {
+// fetch webpage
+let res = null
+let https_proxy = process.env.https_proxy
+if (https_proxy !== '') {
+  res = await fetch(url, {agent: new proxyagent.HttpsProxyAgent(process.env.https_proxy)})
+} else {
+  res = await fetch(url)
+}
+const body = await res.text();
+// parse
+Mercury.parse(url, { contentType: "html", html: Buffer.from(body, 'utf8') }).then((result) => {
   if (result.error) {
     console.log("error parsing:");
     return console.log(result.message);
@@ -58,7 +70,7 @@ Mercury.parse(url, { contentType: "html" }).then((result) => {
       console.log("error writing file:");
       return console.log(err);
     }
-    console.log("written to file: " + fn + "\nlength = " + content.length);
+    console.log("written to file: " + fn + "\nlength = " + content.length + "\nwords = " + content.split(" ").length);
     if (content.length <= MIN_ARTICLE_LENGTH) {
       console.log("article is too short");
       return;
