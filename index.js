@@ -35,7 +35,7 @@ console.log(url);
 
 // fetch webpage
 let res = null
-let https_proxy = process.env.https_proxy
+let https_proxy = process.env.https_proxy || ''
 if (https_proxy !== '') {
   res = await fetch(url, {agent: new proxyagent.HttpsProxyAgent(process.env.https_proxy)})
 } else {
