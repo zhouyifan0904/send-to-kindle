@@ -50,7 +50,7 @@ Mercury.parse(url, { contentType: "html", html: Buffer.from(body, 'utf8') }).the
   }
   console.log("parsed;");
 
-  let fn = `${result.title.replace(/[\s_\/]+/g, "_")}.html`;
+  let fn = `${result.title.replace(/[\s_\/\\?!#$%*&+|"'=:@{}<>]+/g, "_")}.html`;
   let fp = `${process.argv[1].replace(
     /(\\index.js)|(\/index.js)/gm,
     ""
